@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
+</head>
+<body class="todo-page-body">
+    <div class="container">
+        <div class="todo-container">
+            <div class="header">
+                <h1>Todos</h1>
+            </div>
+            <div class="input-form">
+                <form class="form-inline">
+                    <div class="row">
+                        <div class="col-md-8 todoinput-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       id="newTodoText"
+                                       placeholder="What needs to be done?">
+                            </div>
+                        </div>
+                        <div class="col-md-4 addbtn-group">
+                            <button type="submit" class="btn btn-submit">Add Todo
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="body">
+
+                <ul class="todos">
+                    <li class="todo">
+                        <label>
+                            <input type="checkbox">Discuss report with John
+                        </label>
+
+                    </li>
+                    <li class="todo">
+                        <label>
+                            <input type="checkbox">Get a haircut
+                        </label>
+
+                    </li>
+                    <li class="todo checked">
+                        <label>
+                            <input type="checkbox" checked>Pay electricity bill
+                        </label>
+
+                    </li>
+                    <li class="todo">
+
+                        <label>
+                            <input type="checkbox">Check gym hours
+                        </label>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="all-cnt col-md-7">
+                        2 items left
+                    </div>
+                    <div class="mark-all col-md-5">
+                        Mark all as complete
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

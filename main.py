@@ -1,6 +1,6 @@
 from pydoc import locate
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask.ext.restful import Resource, Api
 
 
@@ -33,7 +33,12 @@ class TodoListApi(Resource):
         return TODO_STORAGE.remove_item(USER_ID, todo_id)
 
 
+def show_index():
+    return render_template('index.html')
+
+
 api.add_resource(TodoListApi, '/todos/', '/todos/<int:todo_id>')
+app.add_url_rule('/', view_func=show_index)
 
 
 if __name__ == '__main__':

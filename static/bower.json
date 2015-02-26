@@ -1,0 +1,23 @@
+{
+  "name": "flask-react-todos",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Sapphire64/FlaskReactTodoExample",
+  "authors": [
+    "Anton Vlasenko <antares.spica@gmail.com>"
+  ],
+  "description": "Sample ToDo project based on Flask-RESTful and React",
+  "main": "main.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.2",
+    "bootstrap": "~3.3.2"
+  }
+}

@@ -1,0 +1,138 @@
+$border: 2px #ebebeb solid;
+$inner-border: 1px #cbc9c9 dashed;
+@mixin btn-submit {
+  background: #e8e7e6; /* Old browsers */
+  background: -moz-linear-gradient(top, #e8e7e6 0%, #f1f1f1 50%, #e1e1e1 51%, #d5d3d2 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e8e7e6), color-stop(50%, #f1f1f1), color-stop(51%, #e1e1e1), color-stop(100%, #d5d3d2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #e8e7e6 0%, #f1f1f1 50%, #e1e1e1 51%, #d5d3d2 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #e8e7e6 0%, #f1f1f1 50%, #e1e1e1 51%, #d5d3d2 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #e8e7e6 0%, #f1f1f1 50%, #e1e1e1 51%, #d5d3d2 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #e8e7e6 0%, #f1f1f1 50%, #e1e1e1 51%, #d5d3d2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e8e7e6', endColorstr='#d5d3d2', GradientType=0); /* IE6-8 */
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 6px;
+  color: #3d3d3d;
+  padding: 10px 20px 10px 20px;
+  border: solid #8e8e8e 1px;
+  text-decoration: none;
+  &:hover {
+    background-image: none;
+    background-color: #00aeef;
+    color: #454545;
+  }
+}
+
+/* Actual page styles */
+.todo-page-body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f6f5f5;
+}
+
+.todo-container {
+  border: $border;
+  background-color: #ffffff;
+  width: 500px;
+  margin: 80px auto 0 auto;
+  border-radius: 7px;
+
+  .header {
+    text-align: center;
+    padding: 28px 0;
+    border-bottom: $inner-border;
+    h1 {
+      font-weight: 700;
+      font-size: 30px;
+    }
+  }
+  .input-form {
+    padding: 20px 20px;
+
+    input {
+      border-color: #aeadad;
+      border-width: 1px;      
+    }
+
+    .form-control {
+      height: 40px;
+      width: 100%;
+    }
+    .form-group {
+      width: 100%;
+    }
+    @media (min-width: 992px) {
+      .addbtn-group {
+        padding-left: 0;
+      }
+      .todoinput-group {
+        padding-right: 10px;
+      }
+    }
+
+    .btn-submit {
+      @include btn-submit;
+      border-radius: 5px;
+      height: 40px;
+      width: 100%;
+    }
+  }
+
+  .footer {
+    height: 53px;
+    line-height: 53px;
+    padding: 0 20px;
+    font-size: 13px;
+
+    .all-cnt {
+      color: #8e8e8e;
+    }
+
+    .mark-all {
+      color: #4689c7;
+      font-weight: 400;
+      text-align: right;
+    }
+  }
+}
+
+.todos {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  font-weight: 50;
+  height: 275px;
+  border-bottom: $inner-border;
+
+  .todo {
+    padding: 0 22px;
+    line-height: 52px;
+    height: 52px;
+
+    &.checked {
+      color: #a6a6a6;
+      label {
+        text-decoration: line-through;
+      }
+    }
+
+    label {
+      font-weight: 200;
+    }
+
+    input[type="checkbox"] {
+      /* TODO: fix microplacement of the input */
+      margin: 0 12px 0 0;
+      width: 15px;
+      height: 15px;
+      position: relative;
+      top: 1px;
+    }
+
+    &:nth-child(odd) {
+      background-color: #f4f7fa;
+    }
+  }
+
+}
