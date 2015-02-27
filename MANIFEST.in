@@ -1,0 +1,2 @@
+recursive-include tictail_todo/templates *
+recursive-include tictail_todo/static *

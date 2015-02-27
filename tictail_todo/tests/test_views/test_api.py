@@ -5,19 +5,19 @@ from random import choice, randint
 from uuid import uuid4
 
 # App imports
-import main
-
-from storage.inmemory_dict import STORAGE
+from tictail_todo.app import app
+from tictail_todo.storage.inmemory_dict import STORAGE
+from tictail_todo.views import api
 
 
 class TodoApiTestCase(unittest.TestCase):
 
     def setUp(self):
         # Enforcing memory-based engine for integration tests
-        main.app.config['STORAGE_ENGINE'] = \
+        app.config['STORAGE_ENGINE'] = \
             'storage.inmemory_dict.InMemoryDictToDoStorageProvider'
         self.storage = STORAGE
-        self.app = main.app.test_client()
+        self.app = app.test_client()
 
     def tearDown(self):
         STORAGE.clear()
@@ -40,7 +40,7 @@ class TodoApiTestCase(unittest.TestCase):
 
         # Checking DB entry
         self.assertEqual(
-            self.storage[main.USER_ID].get(response_data.get('id')),
+            self.storage[api.USER_ID].get(response_data.get('id')),
             expected_stored_todo_data
         )
 
@@ -54,7 +54,7 @@ class TodoApiTestCase(unittest.TestCase):
             expected_data.append(
                 dict({'id': id_}.items() + data.items())
             )
-            self.storage[main.USER_ID][id_] = data
+            self.storage[api.USER_ID][id_] = data
 
         response = self.app.get('/todos/')
         response_data = json.loads(response.data)
@@ -69,13 +69,13 @@ class TodoApiTestCase(unittest.TestCase):
         for _ in xrange(10):
             id_ = randint(0, 10000000)
             data = {'data': uuid4().hex, 'is_active': choice([True, False])}
-            self.storage[main.USER_ID][id_] = data
+            self.storage[api.USER_ID][id_] = data
 
         # Choosing item to retrieve
-        requested_id = choice(self.storage[main.USER_ID].keys())
+        requested_id = choice(self.storage[api.USER_ID].keys())
         expected_json_body = dict(
             {'id': requested_id}.items() +
-            self.storage[main.USER_ID][requested_id].items()
+            self.storage[api.USER_ID][requested_id].items()
         )
 
         response = self.app.get(u'/todos/{}'.format(requested_id))
@@ -89,7 +89,7 @@ class TodoApiTestCase(unittest.TestCase):
     def test_update_item(self):
         id_ = randint(0, 10000000)
         data = {'data': uuid4().hex, 'is_active': choice([True, False])}
-        self.storage[main.USER_ID][id_] = data
+        self.storage[api.USER_ID][id_] = data
 
         updated_todo_data = dict(
             data.items() + {'is_active': not data.get('is_active')}.items()
@@ -110,19 +110,19 @@ class TodoApiTestCase(unittest.TestCase):
 
         # Validating DB value
         self.assertDictEqual(
-            self.storage[main.USER_ID][id_],
+            self.storage[api.USER_ID][id_],
             updated_todo_data
         )
 
     def test_remove_item(self):
         id_ = randint(0, 10000000)
         data = {'data': uuid4().hex, 'is_active': choice([True, False])}
-        self.storage[main.USER_ID][id_] = data
+        self.storage[api.USER_ID][id_] = data
 
         response = self.app.delete(u'/todos/{}'.format(id_))
         response_data = json.loads(response.data)
 
         self.assertIsNone(response_data)
         self.assertTrue(
-            id_ not in self.storage[main.USER_ID].keys()
+            id_ not in self.storage[api.USER_ID].keys()
         )

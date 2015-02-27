@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from uuid import uuid4
 
-from storage.abstract import AbstractToDoStorageProvider
+from tictail_todo.storage.abstract import AbstractToDoStorageProvider
 
 
 STORAGE = defaultdict(dict)

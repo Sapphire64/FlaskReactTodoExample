@@ -6,7 +6,7 @@ module.exports = function (grunt) {
                     style: 'expanded'
                 },
                 files: {                         // Dictionary of files
-                    'static/css/main.css': 'static/scss/main.scss'       // 'destination': 'source'
+                    'tictail_todo/static/css/main.css': 'tictail_todo/static/scss/main.scss'       // 'destination': 'source'
                 }
             }
         },
@@ -21,4 +21,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.registerTask('default', ['sass']);
+    grunt.registerTask('build', ['sass']);
 };

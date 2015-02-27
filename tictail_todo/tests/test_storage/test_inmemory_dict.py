@@ -5,7 +5,7 @@ from unittest import TestCase
 
 from mock import patch
 
-from storage.inmemory_dict import InMemoryDictToDoStorageProvider
+from tictail_todo.storage.inmemory_dict import InMemoryDictToDoStorageProvider
 
 
 MOCKED_STORAGE = defaultdict(dict)

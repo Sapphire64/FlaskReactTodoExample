@@ -7,4 +7,5 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 
 # Storage selection
-STORAGE_ENGINE = 'storage.inmemory_dict.InMemoryDictToDoStorageProvider'
+STORAGE_ENGINE = \
+    'tictail_todo.storage.inmemory_dict.InMemoryDictToDoStorageProvider'
