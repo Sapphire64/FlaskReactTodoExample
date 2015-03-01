@@ -12,12 +12,11 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "static/bower_components",
+    "tictail_todo/static/bower_components",
     "test",
     "tests"
   ],
   "dependencies": {
-    "react": "~0.12.2",
     "bootstrap": "~3.3.2"
   }
 }

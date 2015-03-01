@@ -25,6 +25,19 @@ $inner-border: 1px #cbc9c9 dashed;
   }
 }
 
+/* Making scrollbar always visible */
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+
 /* Actual page styles */
 .todo-page-body {
   font-family: 'Open Sans', sans-serif;
@@ -34,9 +47,15 @@ $inner-border: 1px #cbc9c9 dashed;
 .todo-container {
   border: $border;
   background-color: #ffffff;
-  width: 500px;
+  max-width: 500px;
   margin: 80px auto 0 auto;
   border-radius: 7px;
+
+  @media screen and (max-height: 675px), screen and (max-width: 700px) {
+    & {
+      margin: 20px auto 0 auto;
+    }
+  }
 
   .header {
     text-align: center;
@@ -86,18 +105,26 @@ $inner-border: 1px #cbc9c9 dashed;
     font-size: 13px;
 
     .all-cnt {
+      display: inline;
       color: #8e8e8e;
     }
 
     .mark-all {
-      color: #4689c7;
-      font-weight: 400;
+      display: inline;
       text-align: right;
+
+      .btn {
+        color: #4689c7;
+        font-weight: 400;
+        padding: 0;
+        font-size: 13px;
+      }
     }
   }
 }
 
 .todos {
+  overflow-y: auto;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
