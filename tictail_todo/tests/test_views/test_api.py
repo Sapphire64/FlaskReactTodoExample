@@ -67,7 +67,7 @@ class TodoApiTestCase(unittest.TestCase):
     def test_retrieve_one_todo(self):
         # Inserting entries to db
         for _ in xrange(10):
-            id_ = randint(0, 10000000)
+            id_ = str(randint(0, 10000000))
             data = {'data': uuid4().hex, 'is_active': choice([True, False])}
             self.storage[api.USER_ID][id_] = data
 
@@ -87,7 +87,7 @@ class TodoApiTestCase(unittest.TestCase):
         )
 
     def test_update_item(self):
-        id_ = randint(0, 10000000)
+        id_ = str(randint(0, 10000000))
         data = {'data': uuid4().hex, 'is_active': choice([True, False])}
         self.storage[api.USER_ID][id_] = data
 
@@ -100,7 +100,7 @@ class TodoApiTestCase(unittest.TestCase):
 
         response = self.app.put(u'/todos/{}'.format(id_),
                                 data=json.dumps(updated_todo_data),
-                                headers={'content-type':'application/json'})
+                                headers={'content-type': 'application/json'})
         response_data = json.loads(response.data)
 
         self.assertDictEqual(
@@ -115,7 +115,7 @@ class TodoApiTestCase(unittest.TestCase):
         )
 
     def test_remove_item(self):
-        id_ = randint(0, 10000000)
+        id_ = str(randint(0, 10000000))
         data = {'data': uuid4().hex, 'is_active': choice([True, False])}
         self.storage[api.USER_ID][id_] = data
 
@@ -126,3 +126,24 @@ class TodoApiTestCase(unittest.TestCase):
         self.assertTrue(
             id_ not in self.storage[api.USER_ID].keys()
         )
+
+    def test_uuid_ids_supported(self):
+        id_ = uuid4().hex
+        data = {'data': uuid4().hex, 'is_active': choice([True, False])}
+
+        response = self.app.put(u'/todos/{}'.format(id_),
+                                data=json.dumps(data),
+                                headers={'content-type': 'application/json'})
+        self.assertNotEqual(response.status_code, 404)
+
+    def test_values_keys_used_as_strings(self):
+        id_ = randint(0, 10000000)
+        data = {'data': uuid4().hex, 'is_active': choice([True, False])}
+        self.storage[api.USER_ID][str(id_)] = data
+
+        self.app.put(u'/todos/{}'.format(id_),
+                     data=json.dumps(data),
+                     headers={'content-type': 'application/json'})
+        self.assertEqual(len(self.storage[api.USER_ID].keys()), 1)
+        self.assertIn(str(id_), self.storage[api.USER_ID].keys())
+

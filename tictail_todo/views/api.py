@@ -31,4 +31,4 @@ class TodoListApi(Resource):
         return STORAGE_ENGINE.remove_item(USER_ID, todo_id)
 
 
-api.add_resource(TodoListApi, '/todos/', '/todos/<int:todo_id>')
+api.add_resource(TodoListApi, '/todos/', '/todos/<string:todo_id>')
