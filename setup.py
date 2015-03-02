@@ -8,7 +8,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=['Flask', 'flask-restful', 'setuptools-bower'],
+    install_requires=['flask', 'flask-restful', 'setuptools-bower'],
     tests_require=['mock', 'nose'],
     test_suite="nose.collector",
 )
