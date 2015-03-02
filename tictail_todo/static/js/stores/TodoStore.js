@@ -6,18 +6,28 @@ var _ = require('underscore');
 
 var _todos = [];
 
+var resortTodos = function () {
+    /* TODO: remove sorting when drag-and-drop will be implemented */
+    _todos = _.sortBy(_todos, function (todo) {
+        return [!todo.is_active, todo.data]
+    });
+};
+
 var loadTodoData = function (data) {
     _todos = data;
+    resortTodos();
 };
 
 var update = function (todo) {
     var selectedTodo = _.findWhere(_todos, {'id': todo.id});
-
     selectedTodo.is_active = todo.is_active;
+    
+    resortTodos();
 };
 
 var insertTodo = function (todo) {
     _todos.push(todo);
+    resortTodos();
 };
 
 var getUndoneTodos = function () {
@@ -28,6 +38,7 @@ var markAllAsDone = function (todos) {
     for (var i=0; i<todos.length; i++) {
         todos[i].is_active = false;
     }
+    resortTodos();
 };
 
 // Extend TodoStore with EventEmitter to add eventing capabilities
