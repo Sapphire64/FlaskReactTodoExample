@@ -22,7 +22,7 @@ var insertTodo = function (todo) {
 
 var getUndoneTodos = function () {
     return _.filter(_todos, function (td) {return Boolean(td.is_active) });
-}
+};
 
 var markAllAsDone = function (todos) {
     for (var i=0; i<todos.length; i++) {
@@ -32,8 +32,11 @@ var markAllAsDone = function (todos) {
 
 // Extend TodoStore with EventEmitter to add eventing capabilities
 var TodoStore = _.extend({}, EventEmitter.prototype, {
-
-    // Return Product data
+    insertTodo: function (todo) {
+        insertTodo(todo);
+        this.emit('change');
+    },
+    // Return Todo data
     getTodos: function () {
         return _todos;
     },
@@ -73,7 +76,11 @@ AppDispatcher.register(function (payload) {
             update(action.data);
             break;
         case TodoConstants.CREATE_TODO:
-            insertTodo(TodoApi.createTodoItem(action.data));
+            TodoApi.createTodoItem(action.data).end(
+                function (res) {
+                    TodoStore.insertTodo(res.body);
+                }
+            );
             break;
         case TodoConstants.MARK_ALL_AS_DONE:
             var undoneTodos = getUndoneTodos();
